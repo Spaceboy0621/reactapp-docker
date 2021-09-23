@@ -47,15 +47,6 @@ jobs:
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
 
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /prod/shared/shared/dockerhub/username
-          env_variable_name: spaceboy0621docker
-      - uses: marvinpinto/action-inject-ssm-secrets@latest
-        with:
-          ssm_parameter: /prod/shared/shared/dockerhub/password
-          env_variable_name: athena123123
-      
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub
