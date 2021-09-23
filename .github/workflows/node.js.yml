@@ -39,6 +39,11 @@ jobs:
     needs: frontend_build
     steps:
       - uses: actions/checkout@v2
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: Spaceboy0621/reactapp-docker
       - name: Download files to publish
         uses: actions/upload-artifact@v2
         with:
@@ -62,9 +67,11 @@ jobs:
           echo "::set-output name=docker_tag::${current_date}_github_${{ env.GITHUB_REF_SLUG }}_${git_hash}_${GITHUB_RUN_NUMBER}"
         id: docker_tag
       - name: Build and push
+        id: docker_build
         uses: docker/build-push-action@v2
         with:
           context: .
           file: ./Dockerfile
-          tags: spaceboy0621/reactapp
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
           push: true
