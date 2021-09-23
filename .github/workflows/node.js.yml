@@ -39,8 +39,21 @@ jobs:
     needs: frontend_build
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/download-artifact@v2.0.10
+        with:
+          name: bs-build
+          path: build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
+
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /prod/shared/shared/dockerhub/username
+          env_variable_name: spaceboy0621docker
+      - uses: marvinpinto/action-inject-ssm-secrets@latest
+        with:
+          ssm_parameter: /prod/shared/shared/dockerhub/password
+          env_variable_name: athena123123
       
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
@@ -59,7 +72,7 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v2.6.1
         with:
-          context: frontend
-          file: frontend/Dockerfile
+          context: ''
+          file: Dockerfile
           tags: spaceboy0621/reactapp
           push: true
