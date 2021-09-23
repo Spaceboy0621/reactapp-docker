@@ -57,8 +57,8 @@ jobs:
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
-          username: spaceboy0621docker  
-          password: athena123123
+          username: ${{ env.DOCKERHUB_USERNAME }}
+          password: ${{ env.DOCKERHUB_PASSWORD }}
       - name: Inject slug/short variables
         uses: rlespinasse/github-slug-action@v3.x
       - run: >
