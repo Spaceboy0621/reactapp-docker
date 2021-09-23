@@ -39,10 +39,11 @@ jobs:
     needs: frontend_build
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/download-artifact@v2.0.10
+      - name: Download files to publish
+        uses: actions/upload-artifact@v2
         with:
-          name: bs-build
-          path: build
+          name: public
+          path: public
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1.2.0
 
