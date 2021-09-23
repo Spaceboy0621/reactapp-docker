@@ -62,9 +62,9 @@ jobs:
           echo "::set-output name=docker_tag::${current_date}_github_${{ env.GITHUB_REF_SLUG }}_${git_hash}_${GITHUB_RUN_NUMBER}"
         id: docker_tag
       - name: Build and push
-        uses: docker/build-push-action@v2.6.1
+        uses: docker/build-push-action@v2
         with:
-          context: ''
-          file: Dockerfile
+          context: .
+          file: ./Dockerfile
           tags: spaceboy0621/reactapp
           push: true
